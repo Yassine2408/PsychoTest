@@ -218,8 +218,7 @@ export default function Home() {
 
               {/* Disclaimer */}
               <p className="text-sm text-gray-500 mt-8 max-w-2xl mx-auto">
-                This assessment is for informational purposes only and is not a substitute for professional medical advice, 
-                diagnosis, or treatment. Please consult with a qualified healthcare provider for any mental health concerns.
+                {t('common.disclaimer')}
               </p>
             </motion.div>
           )}
@@ -235,12 +234,12 @@ export default function Home() {
               {/* Header */}
               <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                  Emotional Wellness Assessment
+                  {t('common.title')}
                 </h1>
                 <div className="max-w-md mx-auto">
                   <Progress value={progress} className="h-3" />
                   <div className="flex justify-between text-sm text-gray-600 mt-2">
-                    <span>Progress</span>
+                    <span>{t('common.progress')}</span>
                     <span>{Math.round(progress)}%</span>
                   </div>
                 </div>
@@ -266,7 +265,7 @@ export default function Home() {
                   className="min-w-[120px]"
                 >
                   <ArrowLeft className="mr-2 w-4 h-4" />
-                  Previous
+                  {t('common.previous')}
                 </Button>
                 
                 <Button
@@ -275,12 +274,12 @@ export default function Home() {
                   className="min-w-[120px]"
                 >
                   {isLoading ? (
-                    "Processing..."
+                    t('common.processing')
                   ) : currentQuestion === totalQuestions - 1 ? (
-                    "View Results"
+                    t('common.viewResults')
                   ) : (
                     <>
-                      Next
+                      {t('common.next')}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </>
                   )}

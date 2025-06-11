@@ -67,17 +67,16 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
           <User className="w-8 h-8 text-white" />
         </motion.div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Personal Information
+          {t('form.personalInfo')}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Sharing some basic information helps us provide more personalized insights. 
-          All information is confidential and used only for assessment purposes.
+          {t('form.privacyNote')}
         </p>
       </div>
 
       <Card className="backdrop-blur-sm bg-white/90 shadow-xl border-0">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Tell Us About Yourself</CardTitle>
+          <CardTitle className="text-2xl text-center">{t('form.tellUsAboutYourself')}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -89,14 +88,14 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
                 className="space-y-2"
               >
                 <label className="block text-sm font-semibold text-gray-700">
-                  First Name *
+                  {t('form.name')}
                 </label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
                   className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
-                  placeholder="Enter your first name"
+                  placeholder={t('form.namePlaceholder')}
                   required
                 />
               </motion.div>
@@ -108,20 +107,20 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
                 className="space-y-2"
               >
                 <label className="block text-sm font-semibold text-gray-700">
-                  Age Range
+                  {t('form.age')}
                 </label>
                 <select
                   value={formData.age}
                   onChange={(e) => handleInputChange("age", e.target.value)}
                   className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
                 >
-                  <option value="">Select age range</option>
-                  <option value="18-24">18-24</option>
-                  <option value="25-34">25-34</option>
-                  <option value="35-44">35-44</option>
-                  <option value="45-54">45-54</option>
-                  <option value="55-64">55-64</option>
-                  <option value="65+">65+</option>
+                  <option value="">{t('form.selectAge')}</option>
+                  <option value="18-24">{t('form.age1824')}</option>
+                  <option value="25-34">{t('form.age2534')}</option>
+                  <option value="35-44">{t('form.age3544')}</option>
+                  <option value="45-54">{t('form.age4554')}</option>
+                  <option value="55-64">{t('form.age5564')}</option>
+                  <option value="65+">{t('form.age65plus')}</option>
                 </select>
               </motion.div>
             </div>
@@ -154,14 +153,14 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
                 className="space-y-2"
               >
                 <label className="block text-sm font-semibold text-gray-700">
-                  Current Occupation
+                  {t('form.occupation')}
                 </label>
                 <input
                   type="text"
                   value={formData.occupation}
                   onChange={(e) => handleInputChange("occupation", e.target.value)}
                   className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
-                  placeholder="e.g., Student, Teacher, Engineer"
+                  placeholder={t('form.occupationPlaceholder')}
                 />
               </motion.div>
             </div>
@@ -174,39 +173,39 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
             >
               <h3 className="text-lg font-semibold text-gray-800 flex items-center">
                 <Calendar className="w-5 h-5 mr-2 text-blue-500" />
-                Mental Health Background (Optional)
+                {t('form.mentalHealthBackground')}
               </h3>
               
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
-                  Previous Therapy Experience
+                  {t('form.previousTherapy')}
                 </label>
                 <select
                   value={formData.previousTherapy}
                   onChange={(e) => handleInputChange("previousTherapy", e.target.value)}
                   className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
                 >
-                  <option value="">Select option</option>
-                  <option value="never">Never had therapy</option>
-                  <option value="past">Had therapy in the past</option>
-                  <option value="current">Currently in therapy</option>
-                  <option value="prefer-not-to-say">Prefer not to say</option>
+                  <option value="">{t('form.selectOption')}</option>
+                  <option value="never">{t('form.neverTherapy')}</option>
+                  <option value="past">{t('form.pastTherapy')}</option>
+                  <option value="current">{t('form.currentTherapy')}</option>
+                  <option value="prefer-not-to-say">{t('form.preferNotToSay')}</option>
                 </select>
               </div>
 
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
-                  Current Medication for Mental Health
+                  {t('form.currentMedication')}
                 </label>
                 <select
                   value={formData.currentMedication}
                   onChange={(e) => handleInputChange("currentMedication", e.target.value)}
                   className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
                 >
-                  <option value="">Select option</option>
-                  <option value="none">No medication</option>
-                  <option value="yes">Yes, taking medication</option>
-                  <option value="prefer-not-to-say">Prefer not to say</option>
+                  <option value="">{t('form.selectOption')}</option>
+                  <option value="none">{t('form.noMedication')}</option>
+                  <option value="yes">{t('form.yesMedication')}</option>
+                  <option value="prefer-not-to-say">{t('form.preferNotToSay')}</option>
                 </select>
               </div>
             </motion.div>
@@ -219,41 +218,41 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
             >
               <h3 className="text-lg font-semibold text-gray-800 flex items-center">
                 <Briefcase className="w-5 h-5 mr-2 text-purple-500" />
-                Current Situation
+                {t('form.currentSituation')}
               </h3>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Support System
+                    {t('form.supportSystem')}
                   </label>
                   <select
                     value={formData.supportSystem}
                     onChange={(e) => handleInputChange("supportSystem", e.target.value)}
                     className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
                   >
-                    <option value="">Select option</option>
-                    <option value="strong">Strong support from family/friends</option>
-                    <option value="moderate">Some support from family/friends</option>
-                    <option value="limited">Limited support</option>
-                    <option value="none">No support system</option>
+                    <option value="">{t('form.selectOption')}</option>
+                    <option value="strong">{t('form.strongSupport')}</option>
+                    <option value="moderate">{t('form.moderateSupport')}</option>
+                    <option value="limited">{t('form.limitedSupport')}</option>
+                    <option value="none">{t('form.noSupport')}</option>
                   </select>
                 </div>
 
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
-                    Current Stress Level
+                    {t('form.stressLevel')}
                   </label>
                   <select
                     value={formData.stressLevel}
                     onChange={(e) => handleInputChange("stressLevel", e.target.value)}
                     className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
                   >
-                    <option value="">Select option</option>
-                    <option value="low">Low stress</option>
-                    <option value="moderate">Moderate stress</option>
-                    <option value="high">High stress</option>
-                    <option value="overwhelming">Overwhelming stress</option>
+                    <option value="">{t('form.selectOption')}</option>
+                    <option value="low">{t('form.lowStress')}</option>
+                    <option value="moderate">{t('form.moderateStress')}</option>
+                    <option value="high">{t('form.highStress')}</option>
+                    <option value="overwhelming">{t('form.overwhelmingStress')}</option>
                   </select>
                 </div>
               </div>
@@ -271,7 +270,7 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
                 onClick={onSkip}
                 className="text-gray-600 hover:text-gray-800"
               >
-                Skip this step
+                {t('common.skip')}
               </Button>
               
               <Button
@@ -280,7 +279,7 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
                 size="lg"
                 className="min-w-[200px] bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
               >
-                Continue to Assessment
+                {t('form.continueToAssessment')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>
@@ -295,8 +294,7 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
         className="text-center mt-6"
       >
         <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-          🔒 Your information is completely confidential and is used only to personalize your assessment results. 
-          We do not store or share your personal data.
+          {t('form.privacyNote')}
         </p>
       </motion.div>
     </motion.div>

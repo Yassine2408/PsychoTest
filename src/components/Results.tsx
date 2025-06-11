@@ -50,10 +50,10 @@ export function Results({ result, userInfo, onRetake }: ResultsProps) {
           <Icon className={`w-8 h-8 ${color}`} />
         </motion.div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Assessment Complete
+          {t('results.assessmentComplete')}
         </h1>
         <p className="text-lg text-gray-600">
-          Here are your personalized results
+          {t('results.personalizedResults')}
         </p>
       </div>
 
@@ -62,7 +62,7 @@ export function Results({ result, userInfo, onRetake }: ResultsProps) {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl flex items-center justify-center gap-2">
             <Heart className="w-6 h-6 text-pink-500" />
-            Your Assessment Score
+{t('results.yourScore')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -71,13 +71,13 @@ export function Results({ result, userInfo, onRetake }: ResultsProps) {
               {result.score}
             </div>
             <div className={`text-xl font-semibold ${color} mb-4`}>
-              {result.level} Level
+              {t(`results.${result.level.toLowerCase()}Level`)} 
             </div>
             <Progress value={result.score} className="h-3" />
           </div>
           
           <div className="bg-gray-50 rounded-lg p-6">
-            <h3 className="font-semibold text-lg mb-3">What this means:</h3>
+            <h3 className="font-semibold text-lg mb-3">{t('results.whatThisMeans')}</h3>
             <p className="text-gray-700 leading-relaxed">
               {result.description}
             </p>
@@ -88,7 +88,7 @@ export function Results({ result, userInfo, onRetake }: ResultsProps) {
       {/* Recommendations */}
       <Card className="backdrop-blur-sm bg-white/90 shadow-xl border-0">
         <CardHeader>
-          <CardTitle className="text-xl">Recommended Next Steps</CardTitle>
+          <CardTitle className="text-xl">{t('results.recommendations')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
