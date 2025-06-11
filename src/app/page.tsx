@@ -6,15 +6,18 @@ import { assessmentQuestions, totalQuestions } from "@/data/questions"
 import { Question } from "@/components/Question"
 import { Results } from "@/components/Results"
 import { UserInfoForm, UserInfo } from "@/components/UserInfoForm"
+import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Brain, Heart, ArrowRight, ArrowLeft } from "lucide-react"
 import { AssessmentResult } from "@/lib/utils"
+import { useTranslation } from "../hooks/useTranslation"
 
 type AppState = 'welcome' | 'userInfo' | 'assessment' | 'results'
 
 export default function Home() {
+  const { t } = useTranslation();
   const [currentState, setCurrentState] = useState<AppState>('welcome')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<(number | null)[]>(
@@ -96,6 +99,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Language Switcher */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSwitcher />
+      </div>
+      
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
@@ -125,12 +133,10 @@ export default function Home() {
               </motion.div>
 
               <h1 className="text-5xl font-bold text-gray-900 mb-4">
-                Emotional Wellness Assessment
+                {t('common.title')}
               </h1>
               <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Take a few minutes to understand your emotional well-being. 
-                This scientifically-informed assessment will provide personalized insights 
-                and recommendations for your mental health journey.
+                {t('common.description')}
               </p>
 
               {/* Features */}
@@ -138,18 +144,18 @@ export default function Home() {
                 {[
                   {
                     icon: Heart,
-                    title: "Comprehensive Analysis",
-                    description: "Evaluates anxiety, depression, trauma, stress, and mood indicators"
+                    title: t('common.comprehensiveAnalysis'),
+                    description: t('common.comprehensiveAnalysisDesc')
                   },
                   {
                     icon: Brain,
-                    title: "Personalized Results",
-                    description: "Receive tailored recommendations based on your responses"
+                    title: t('common.personalizedResults'),
+                    description: t('common.personalizedResultsDesc')
                   },
                   {
                     icon: ArrowRight,
-                    title: "Actionable Insights",
-                    description: "Get practical next steps to support your mental wellness"
+                    title: t('common.actionableInsights'),
+                    description: t('common.actionableInsightsDesc')
                   }
                 ].map((feature, index) => (
                   <motion.div
@@ -174,9 +180,9 @@ export default function Home() {
               {/* Assessment Info */}
               <Card className="max-w-2xl mx-auto backdrop-blur-sm bg-white/90 shadow-xl border-0 mb-8">
                 <CardHeader>
-                  <CardTitle className="text-2xl">What to Expect</CardTitle>
+                  <CardTitle className="text-2xl">{t('common.whatToExpect')}</CardTitle>
                   <CardDescription className="text-base">
-                    The assessment takes approximately 5-10 minutes to complete
+                    {t('common.assessmentTime')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -184,19 +190,19 @@ export default function Home() {
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="text-blue-600 font-semibold text-sm">15</span>
                     </div>
-                    <span className="text-gray-700">carefully crafted questions</span>
+                    <span className="text-gray-700">{t('common.questionsCount')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                       <Heart className="w-4 h-4 text-purple-600" />
                     </div>
-                    <span className="text-gray-700">Evidence-based assessment methods</span>
+                    <span className="text-gray-700">{t('common.evidenceBased')}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                       <ArrowRight className="w-4 h-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Immediate, personalized results</span>
+                    <span className="text-gray-700">{t('common.immediateResults')}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -206,7 +212,7 @@ export default function Home() {
                 size="lg"
                 className="text-lg px-8 py-4 h-auto bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
               >
-                Begin Assessment
+{t('common.startAssessment')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
 

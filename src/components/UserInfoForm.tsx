@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { User, ArrowRight, Calendar, Briefcase } from "lucide-react"
+import { useTranslation } from "../hooks/useTranslation"
 
 export interface UserInfo {
   name: string
@@ -23,6 +24,7 @@ interface UserInfoFormProps {
 }
 
 export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<UserInfo>({
     name: "",
     age: "",
@@ -132,18 +134,16 @@ export function UserInfoForm({ onSubmit, onSkip }: UserInfoFormProps) {
                 className="space-y-2"
               >
                 <label className="block text-sm font-semibold text-gray-700">
-                  Gender Identity
+                  {t('form.gender')}
                 </label>
                 <select
                   value={formData.gender}
                   onChange={(e) => handleInputChange("gender", e.target.value)}
                   className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
                 >
-                  <option value="">Select gender identity</option>
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                  <option value="non-binary">Non-binary</option>
-                  <option value="prefer-not-to-say">Prefer not to say</option>
+                  <option value="">{t('form.selectGender')}</option>
+                  <option value="female">{t('common.female')}</option>
+                  <option value="male">{t('common.male')}</option>
                 </select>
               </motion.div>
 

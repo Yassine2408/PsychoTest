@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Heart, AlertTriangle, CheckCircle, XCircle, Download, Printer, TrendingUp, Shield, Target } from "lucide-react"
+import { useTranslation } from "../hooks/useTranslation"
 
 interface ResultsProps {
   result: AssessmentResult
@@ -15,6 +16,7 @@ interface ResultsProps {
 }
 
 export function Results({ result, userInfo, onRetake }: ResultsProps) {
+  const { t } = useTranslation();
   const getIconAndColor = () => {
     switch (result.level) {
       case 'Low':
@@ -243,19 +245,19 @@ export function Results({ result, userInfo, onRetake }: ResultsProps) {
         <CardContent>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <h4 className="font-semibold text-gray-800">Crisis Support</h4>
+              <h4 className="font-semibold text-gray-800">{t('results.crisisSupport')}</h4>
               <div className="space-y-2 text-sm">
-                <div>• National Suicide Prevention Lifeline: 988</div>
-                <div>• Crisis Text Line: Text HOME to 741741</div>
-                <div>• Emergency Services: 911</div>
+                <div>• {t('emergency.suicideHotline')}</div>
+                <div>• {t('emergency.emergencyServices')}</div>
+                <div>• {t('emergency.mentalHealthHotline')}</div>
               </div>
             </div>
             <div className="space-y-3">
-              <h4 className="font-semibold text-gray-800">Find Help</h4>
+              <h4 className="font-semibold text-gray-800">{t('results.findHelp')}</h4>
               <div className="space-y-2 text-sm">
-                <div>• Psychology Today Therapist Finder</div>
-                <div>• SAMHSA National Helpline: 1-800-662-4357</div>
-                <div>• Local Community Mental Health Centers</div>
+                <div>• {t('emergency.nationalHelpline')}</div>
+                <div>• Centre Psychiatrique Universitaire Ibn Rushd - Casablanca</div>
+                <div>• Hôpital Psychiatrique Moulay Youssef - Salé</div>
               </div>
             </div>
           </div>
