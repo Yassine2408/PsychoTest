@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Question as QuestionType } from "@/data/questions"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "../hooks/useTranslation"
 
 interface QuestionProps {
   question: QuestionType
@@ -20,6 +21,8 @@ export function Question({
   questionNumber,
   totalQuestions,
 }: QuestionProps) {
+  const { t } = useTranslation();
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -31,10 +34,10 @@ export function Question({
       <Card className="backdrop-blur-sm bg-white/80 shadow-xl border-0">
         <CardHeader className="text-center pb-6">
           <div className="text-sm text-muted-foreground mb-2">
-            Question {questionNumber} of {totalQuestions}
+            {t('questions.questionOf', { number: questionNumber, total: totalQuestions })}
           </div>
           <CardTitle className="text-xl leading-relaxed">
-            {question.text}
+            {t(question.textKey)}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -69,7 +72,7 @@ export function Question({
                     />
                   )}
                 </div>
-                <span className="font-medium">{option.text}</span>
+                <span className="font-medium">{t(option.textKey)}</span>
               </div>
             </motion.button>
           ))}

@@ -17,8 +17,8 @@ export function useTranslation() {
     };
   }, []);
 
-  const t = (key: string) => {
-    return i18n.t(key);
+  const t = (key: string, params?: Record<string, string | number>) => {
+    return i18n.t(key, params);
   };
 
   return { t, language };

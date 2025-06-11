@@ -86,7 +86,37 @@ const resources: TranslationResources = {
       continueToAssessment: "Continue to Assessment"
     },
     questions: {
-      progressLabel: "Question {current} of {total}"
+      progressLabel: "Question {current} of {total}",
+      // Question texts
+      question1: "Over the past two weeks, how often have you felt nervous, anxious, or on edge?",
+      question2: "How often have you been bothered by not being able to stop or control worrying?",
+      question3: "Over the past two weeks, how often have you had little interest or pleasure in doing things?",
+      question4: "How often have you felt down, depressed, or hopeless?",
+      question5: "How often do you have trouble falling or staying asleep, or sleeping too much?",
+      question6: "How often do you feel tired or have little energy?",
+      question7: "How often do you experience unwanted memories or flashbacks of a traumatic event?",
+      question8: "How often do you avoid places, people, or activities that remind you of a traumatic experience?",
+      question9: "How often do you feel emotionally numb or detached from others?",
+      question10: "How often do you feel overwhelmed by daily responsibilities?",
+      question11: "How often do you have difficulty concentrating on tasks?",
+      question12: "How often do you experience sudden mood changes?",
+      question13: "How often do you feel irritable or angry without clear reason?",
+      question14: "How often do you worry about things that are out of your control?",
+      question15: "How often do you feel physically tense or restless?",
+      
+      // Answer options
+      notAtAll: "Not at all",
+      severalDays: "Several days",
+      moreThanHalf: "More than half the days",
+      nearlyEveryDay: "Nearly every day",
+      never: "Never",
+      rarely: "Rarely",
+      sometimes: "Sometimes", 
+      often: "Often",
+      veryOften: "Very often",
+      
+      // Question indicator
+      questionOf: "Question {number} of {total}"
     },
     results: {
       assessmentComplete: "Assessment Complete",
@@ -199,7 +229,37 @@ const resources: TranslationResources = {
       continueToAssessment: "Continuer vers l'Évaluation"
     },
     questions: {
-      progressLabel: "Question {current} sur {total}"
+      progressLabel: "Question {current} sur {total}",
+      // Question texts  
+      question1: "Au cours des deux dernières semaines, à quelle fréquence vous êtes-vous senti nerveux, anxieux ou sur les nerfs ?",
+      question2: "À quelle fréquence avez-vous été gêné par l'incapacité d'arrêter ou de contrôler vos inquiétudes ?",
+      question3: "Au cours des deux dernières semaines, à quelle fréquence avez-vous eu peu d'intérêt ou de plaisir à faire des choses ?",
+      question4: "À quelle fréquence vous êtes-vous senti déprimé, découragé ou sans espoir ?",
+      question5: "À quelle fréquence avez-vous des difficultés à vous endormir ou à rester endormi, ou dormez-vous trop ?",
+      question6: "À quelle fréquence vous sentez-vous fatigué ou manquez-vous d'énergie ?",
+      question7: "À quelle fréquence vivez-vous des souvenirs indésirables ou des flashbacks d'un événement traumatisant ?",
+      question8: "À quelle fréquence évitez-vous des lieux, des personnes ou des activités qui vous rappellent une expérience traumatisante ?",
+      question9: "À quelle fréquence vous sentez-vous émotionnellement engourdi ou détaché des autres ?",
+      question10: "À quelle fréquence vous sentez-vous dépassé par les responsabilités quotidiennes ?",
+      question11: "À quelle fréquence avez-vous des difficultés à vous concentrer sur des tâches ?",
+      question12: "À quelle fréquence vivez-vous des changements d'humeur soudains ?",
+      question13: "À quelle fréquence vous sentez-vous irritable ou en colère sans raison claire ?",
+      question14: "À quelle fréquence vous inquiétez-vous de choses qui échappent à votre contrôle ?",
+      question15: "À quelle fréquence vous sentez-vous physiquement tendu ou agité ?",
+      
+      // Answer options
+      notAtAll: "Pas du tout",
+      severalDays: "Plusieurs jours",
+      moreThanHalf: "Plus de la moitié des jours",
+      nearlyEveryDay: "Presque tous les jours",
+      never: "Jamais",
+      rarely: "Rarement",
+      sometimes: "Parfois",
+      often: "Souvent", 
+      veryOften: "Très souvent",
+      
+      // Question indicator
+      questionOf: "Question {number} sur {total}"
     },
     results: {
       yourScore: "Votre Score d'Évaluation",
@@ -299,7 +359,37 @@ const resources: TranslationResources = {
       continueToAssessment: "المتابعة إلى التقييم"
     },
     questions: {
-      progressLabel: "السؤال {current} من {total}"
+      progressLabel: "السؤال {current} من {total}",
+      // Question texts
+      question1: "خلال الأسبوعين الماضيين، كم مرة شعرت بالتوتر أو القلق أو الانزعاج؟",
+      question2: "كم مرة انزعجت من عدم قدرتك على التوقف أو السيطرة على القلق؟",
+      question3: "خلال الأسبوعين الماضيين، كم مرة كان لديك اهتمام قليل أو متعة في فعل الأشياء؟",
+      question4: "كم مرة شعرت بالحزن أو الاكتئاب أو اليأس؟",
+      question5: "كم مرة واجهت صعوبة في النوم أو البقاء نائماً، أو النوم كثيراً؟",
+      question6: "كم مرة تشعر بالتعب أو لديك طاقة قليلة؟",
+      question7: "كم مرة تواجه ذكريات غير مرغوب فيها أو استرجاع لحدث صادم؟",
+      question8: "كم مرة تتجنب الأماكن أو الأشخاص أو الأنشطة التي تذكرك بتجربة صادمة؟",
+      question9: "كم مرة تشعر بالخدر العاطفي أو الانفصال عن الآخرين؟",
+      question10: "كم مرة تشعر بالإرهاق من المسؤوليات اليومية؟",
+      question11: "كم مرة تواجه صعوبة في التركيز على المهام؟",
+      question12: "كم مرة تواجه تغيرات مزاجية مفاجئة؟",
+      question13: "كم مرة تشعر بالانزعاج أو الغضب دون سبب واضح؟",
+      question14: "كم مرة تقلق بشأن أشياء خارجة عن سيطرتك؟",
+      question15: "كم مرة تشعر بالتوتر الجسدي أو القلق؟",
+      
+      // Answer options
+      notAtAll: "إطلاقاً",
+      severalDays: "عدة أيام",
+      moreThanHalf: "أكثر من نصف الأيام",
+      nearlyEveryDay: "تقريباً كل يوم",
+      never: "أبداً",
+      rarely: "نادراً",
+      sometimes: "أحياناً",
+      often: "غالباً",
+      veryOften: "كثيراً جداً",
+      
+      // Question indicator
+      questionOf: "السؤال {number} من {total}"
     },
     results: {
       yourScore: "نتيجة التقييم الخاصة بك",
@@ -340,12 +430,24 @@ class SimpleI18n {
     window.dispatchEvent(new CustomEvent('languageChanged', { detail: language }));
   }
 
-  t(key: string): string {
+  t(key: string, params?: Record<string, string | number>): string {
     const keys = key.split('.');
     let value: any = this.resources[this.currentLanguage];
     
     for (const k of keys) {
-      value = value?.[k];
+      value = value[k];
+      if (value === undefined) {
+        return key; // Return key if translation not found
+      }
+    }
+    
+    // Handle parameter interpolation
+    if (params && typeof value === 'string') {
+      let result = value;
+      Object.entries(params).forEach(([paramKey, paramValue]) => {
+        result = result.replace(new RegExp(`\\{${paramKey}\\}`, 'g'), String(paramValue));
+      });
+      return result;
     }
     
     return value || key;

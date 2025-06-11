@@ -1,8 +1,8 @@
 export interface Question {
   id: number
-  text: string
+  textKey: string
   options: {
-    text: string
+    textKey: string
     value: number
   }[]
   category: 'anxiety' | 'depression' | 'trauma' | 'stress' | 'mood'
@@ -11,176 +11,176 @@ export interface Question {
 export const assessmentQuestions: Question[] = [
   {
     id: 1,
-    text: "Over the past two weeks, how often have you felt nervous, anxious, or on edge?",
+    textKey: "questions.question1",
     category: "anxiety",
     options: [
-      { text: "Not at all", value: 0 },
-      { text: "Several days", value: 1 },
-      { text: "More than half the days", value: 2 },
-      { text: "Nearly every day", value: 3 }
+      { textKey: "questions.notAtAll", value: 0 },
+      { textKey: "questions.severalDays", value: 1 },
+      { textKey: "questions.moreThanHalf", value: 2 },
+      { textKey: "questions.nearlyEveryDay", value: 3 }
     ]
   },
   {
     id: 2,
-    text: "How often have you been bothered by not being able to stop or control worrying?",
+    textKey: "questions.question2",
     category: "anxiety",
     options: [
-      { text: "Not at all", value: 0 },
-      { text: "Several days", value: 1 },
-      { text: "More than half the days", value: 2 },
-      { text: "Nearly every day", value: 3 }
+      { textKey: "questions.notAtAll", value: 0 },
+      { textKey: "questions.severalDays", value: 1 },
+      { textKey: "questions.moreThanHalf", value: 2 },
+      { textKey: "questions.nearlyEveryDay", value: 3 }
     ]
   },
   {
     id: 3,
-    text: "Over the past two weeks, how often have you had little interest or pleasure in doing things?",
+    textKey: "questions.question3",
     category: "depression",
     options: [
-      { text: "Not at all", value: 0 },
-      { text: "Several days", value: 1 },
-      { text: "More than half the days", value: 2 },
-      { text: "Nearly every day", value: 3 }
+      { textKey: "questions.notAtAll", value: 0 },
+      { textKey: "questions.severalDays", value: 1 },
+      { textKey: "questions.moreThanHalf", value: 2 },
+      { textKey: "questions.nearlyEveryDay", value: 3 }
     ]
   },
   {
     id: 4,
-    text: "How often have you felt down, depressed, or hopeless?",
+    textKey: "questions.question4",
     category: "depression",
     options: [
-      { text: "Not at all", value: 0 },
-      { text: "Several days", value: 1 },
-      { text: "More than half the days", value: 2 },
-      { text: "Nearly every day", value: 3 }
+      { textKey: "questions.notAtAll", value: 0 },
+      { textKey: "questions.severalDays", value: 1 },
+      { textKey: "questions.moreThanHalf", value: 2 },
+      { textKey: "questions.nearlyEveryDay", value: 3 }
     ]
   },
   {
     id: 5,
-    text: "How often do you have trouble falling or staying asleep, or sleeping too much?",
+    textKey: "questions.question5",
     category: "depression",
     options: [
-      { text: "Not at all", value: 0 },
-      { text: "Several days", value: 1 },
-      { text: "More than half the days", value: 2 },
-      { text: "Nearly every day", value: 3 }
+      { textKey: "questions.notAtAll", value: 0 },
+      { textKey: "questions.severalDays", value: 1 },
+      { textKey: "questions.moreThanHalf", value: 2 },
+      { textKey: "questions.nearlyEveryDay", value: 3 }
     ]
   },
   {
     id: 6,
-    text: "How often do you feel tired or have little energy?",
+    textKey: "questions.question6",
     category: "depression",
     options: [
-      { text: "Not at all", value: 0 },
-      { text: "Several days", value: 1 },
-      { text: "More than half the days", value: 2 },
-      { text: "Nearly every day", value: 3 }
+      { textKey: "questions.notAtAll", value: 0 },
+      { textKey: "questions.severalDays", value: 1 },
+      { textKey: "questions.moreThanHalf", value: 2 },
+      { textKey: "questions.nearlyEveryDay", value: 3 }
     ]
   },
   {
     id: 7,
-    text: "How often do you experience unwanted memories or flashbacks of a traumatic event?",
+    textKey: "questions.question7",
     category: "trauma",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 8,
-    text: "How often do you avoid places, people, or activities that remind you of a traumatic experience?",
+    textKey: "questions.question8",
     category: "trauma",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 9,
-    text: "How often do you feel emotionally numb or detached from others?",
+    textKey: "questions.question9",
     category: "trauma",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 10,
-    text: "How often do you feel overwhelmed by daily responsibilities?",
+    textKey: "questions.question10",
     category: "stress",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 11,
-    text: "How often do you have difficulty concentrating on tasks?",
+    textKey: "questions.question11",
     category: "stress",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 12,
-    text: "How often do you experience sudden mood changes?",
+    textKey: "questions.question12",
     category: "mood",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 13,
-    text: "How often do you feel irritable or angry without clear reason?",
+    textKey: "questions.question13",
     category: "mood",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 14,
-    text: "How often do you worry about things that are out of your control?",
+    textKey: "questions.question14",
     category: "anxiety",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   },
   {
     id: 15,
-    text: "How often do you feel physically tense or restless?",
+    textKey: "questions.question15",
     category: "anxiety",
     options: [
-      { text: "Never", value: 0 },
-      { text: "Rarely", value: 1 },
-      { text: "Sometimes", value: 2 },
-      { text: "Often", value: 3 },
-      { text: "Very often", value: 4 }
+      { textKey: "questions.never", value: 0 },
+      { textKey: "questions.rarely", value: 1 },
+      { textKey: "questions.sometimes", value: 2 },
+      { textKey: "questions.often", value: 3 },
+      { textKey: "questions.veryOften", value: 4 }
     ]
   }
 ]
