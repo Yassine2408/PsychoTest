@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { PersonalizedQuestion } from "@/components/PersonalizedQuestion"
-import { Results } from "@/components/Results"
+import { AIResults } from "@/components/AIResults"
 import { UserInfoForm, UserInfo } from "@/components/UserInfoForm"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { Button } from "@/components/ui/button"
@@ -58,6 +58,32 @@ export default function Home() {
   const handleSubmitAssessment = async () => {
     setIsLoading(true)
     try {
+      console.log('🚀 Starting AI-powered assessment analysis...')
+      
+      // First, use AI to analyze the results
+      const aiAnalysisResponse = await fetch('/api/analyze-results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          userInfo: userInfo || {},
+          questions: personalizedQuestions,
+          answers: answers,
+          language: language 
+        }),
+      })
+
+      let aiAnalysis = null
+      if (aiAnalysisResponse.ok) {
+        const aiData = await aiAnalysisResponse.json()
+        if (aiData.success) {
+          aiAnalysis = aiData.analysis
+          console.log('✅ AI analysis successful:', aiAnalysis.level)
+        }
+      }
+
+      // Then save to database with AI results
       const response = await fetch('/api/assess', {
         method: 'POST',
         headers: {
@@ -66,15 +92,28 @@ export default function Home() {
         body: JSON.stringify({ 
           answers, 
           userInfo,
-          personalizedContext: assessmentContext 
+          personalizedContext: assessmentContext,
+          aiAnalysis: aiAnalysis,
+          personalizedQuestions: personalizedQuestions
         }),
       })
 
       const data = await response.json()
       
       if (data.success) {
-        setResult(data.result)
+        // Use AI analysis if available, otherwise use basic calculation
+        const finalResult = aiAnalysis ? {
+          ...data.result,
+          ...aiAnalysis,
+          aiPowered: true
+        } : {
+          ...data.result,
+          aiPowered: false
+        }
+        
+        setResult(finalResult)
         setCurrentState('results')
+        console.log('🎉 Assessment completed with AI analysis!')
       } else {
         console.error('Assessment failed:', data.error)
       }
@@ -431,7 +470,7 @@ export default function Home() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Results result={result} userInfo={userInfo || undefined} onRetake={handleRetake} />
+              <AIResults result={result} userInfo={userInfo || undefined} onRetake={handleRetake} />
             </motion.div>
           )}
         </AnimatePresence>
