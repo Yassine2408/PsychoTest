@@ -2,30 +2,38 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { assessmentQuestions, totalQuestions } from "@/data/questions"
-import { Question } from "@/components/Question"
+import { PersonalizedQuestion } from "@/components/PersonalizedQuestion"
 import { Results } from "@/components/Results"
 import { UserInfoForm, UserInfo } from "@/components/UserInfoForm"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Brain, Heart, ArrowRight, ArrowLeft } from "lucide-react"
+import { Brain, Heart, ArrowRight, ArrowLeft, Sparkles, Users, Clock } from "lucide-react"
 import { AssessmentResult } from "@/lib/utils"
 import { useTranslation } from "../hooks/useTranslation"
+import { GeneratedQuestion } from "@/lib/gemini"
 
-type AppState = 'welcome' | 'userInfo' | 'assessment' | 'results'
+type AppState = 'welcome' | 'userInfo' | 'generating' | 'assessment' | 'results'
+
+interface PersonalizedAssessment {
+  questions: GeneratedQuestion[];
+  context: string;
+}
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [currentState, setCurrentState] = useState<AppState>('welcome')
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [answers, setAnswers] = useState<(number | null)[]>(
-    new Array(totalQuestions).fill(null)
-  )
+  const [answers, setAnswers] = useState<(number | null)[]>([])
   const [result, setResult] = useState<AssessmentResult | null>(null)
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
+  const [personalizedQuestions, setPersonalizedQuestions] = useState<GeneratedQuestion[]>([])
+  const [assessmentContext, setAssessmentContext] = useState<string>("")
   const [isLoading, setIsLoading] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
+
+  const totalQuestions = personalizedQuestions.length || 15
 
   const handleAnswerSelect = (value: number) => {
     const newAnswers = [...answers]
@@ -55,7 +63,11 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ answers, userInfo }),
+        body: JSON.stringify({ 
+          answers, 
+          userInfo,
+          personalizedContext: assessmentContext 
+        }),
       })
 
       const data = await response.json()
@@ -76,25 +88,75 @@ export default function Home() {
   const handleRetake = () => {
     setCurrentState('welcome')
     setCurrentQuestion(0)
-    setAnswers(new Array(totalQuestions).fill(null))
+    setAnswers([])
     setResult(null)
     setUserInfo(null)
+    setPersonalizedQuestions([])
+    setAssessmentContext("")
   }
 
   const startAssessment = () => {
     setCurrentState('userInfo')
   }
 
-  const handleUserInfoSubmit = (userData: UserInfo) => {
+  const handleUserInfoSubmit = async (userData: UserInfo) => {
     setUserInfo(userData)
-    setCurrentState('assessment')
+    await generatePersonalizedQuestions(userData)
   }
 
-  const handleUserInfoSkip = () => {
-    setCurrentState('assessment')
+     const handleUserInfoSkip = async () => {
+     // Generate questions without user info
+     await generatePersonalizedQuestions({})
+   }
+
+  const generatePersonalizedQuestions = async (userData: Partial<UserInfo>) => {
+    setIsGenerating(true)
+    setCurrentState('generating')
+    
+    try {
+      // Convert UserInfo to the format expected by Gemini
+      const geminiUserInfo = {
+        name: userData.name || '',
+        age: userData.age ? parseInt(userData.age) : undefined,
+        gender: userData.gender || '',
+        occupation: userData.occupation || '',
+        location: undefined // Not available in current UserInfo
+      }
+
+      const response = await fetch('/api/generate-questions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          userInfo: geminiUserInfo,
+          language: language 
+        }),
+      })
+
+      const data = await response.json()
+      
+      if (data.success) {
+        setPersonalizedQuestions(data.assessment.questions)
+        setAssessmentContext(data.assessment.context)
+        setAnswers(new Array(data.assessment.questions.length).fill(null))
+        setCurrentState('assessment')
+        console.log('Generated personalized assessment:', data.assessment.context)
+      } else {
+        console.error('Failed to generate questions:', data.error)
+        // Fallback to assessment with default questions
+        setCurrentState('assessment')
+      }
+    } catch (error) {
+      console.error('Error generating questions:', error)
+      // Fallback to assessment with default questions
+      setCurrentState('assessment')
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
-  const progress = ((currentQuestion + 1) / totalQuestions) * 100
+  const progress = totalQuestions > 0 ? ((currentQuestion + 1) / totalQuestions) * 100 : 0
   const isCurrentAnswered = answers[currentQuestion] !== null
 
   return (
@@ -135,27 +197,33 @@ export default function Home() {
               <h1 className="text-5xl font-bold text-gray-900 mb-4">
                 {t('common.title')}
               </h1>
-              <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
                 {t('common.description')}
               </p>
+
+              {/* AI-Powered Badge */}
+              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full text-purple-700 font-medium mb-8">
+                <Sparkles className="w-4 h-4 mr-2" />
+                AI-Powered Personalized Assessment
+              </div>
 
               {/* Features */}
               <div className="grid md:grid-cols-3 gap-6 mb-12">
                 {[
                   {
-                    icon: Heart,
-                    title: t('common.comprehensiveAnalysis'),
-                    description: t('common.comprehensiveAnalysisDesc')
+                    icon: Sparkles,
+                    title: "AI-Personalized Questions",
+                    description: "Questions tailored specifically to your profile using advanced AI"
+                  },
+                  {
+                    icon: Users,
+                    title: "Individual Context",
+                    description: "Assessment considers your age, occupation, and personal background"
                   },
                   {
                     icon: Brain,
-                    title: t('common.personalizedResults'),
-                    description: t('common.personalizedResultsDesc')
-                  },
-                  {
-                    icon: ArrowRight,
-                    title: t('common.actionableInsights'),
-                    description: t('common.actionableInsightsDesc')
+                    title: "Deeper Insights",
+                    description: "More accurate results through personalized psychological evaluation"
                   }
                 ].map((feature, index) => (
                   <motion.div
@@ -166,8 +234,8 @@ export default function Home() {
                   >
                     <Card className="h-full backdrop-blur-sm bg-white/80 shadow-lg border-0 hover:shadow-xl transition-shadow duration-300">
                       <CardContent className="p-6 text-center">
-                        <div className="w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                          <feature.icon className="w-6 h-6 text-blue-600" />
+                        <div className="w-12 h-12 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                          <feature.icon className="w-6 h-6 text-purple-600" />
                         </div>
                         <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
                         <p className="text-gray-600 text-sm">{feature.description}</p>
@@ -180,29 +248,32 @@ export default function Home() {
               {/* Assessment Info */}
               <Card className="max-w-2xl mx-auto backdrop-blur-sm bg-white/90 shadow-xl border-0 mb-8">
                 <CardHeader>
-                  <CardTitle className="text-2xl">{t('common.whatToExpect')}</CardTitle>
+                  <CardTitle className="text-2xl flex items-center justify-center gap-2">
+                    <Sparkles className="w-6 h-6 text-purple-600" />
+                    Personalized Assessment Process
+                  </CardTitle>
                   <CardDescription className="text-base">
-                    {t('common.assessmentTime')}
+                    Experience a truly personalized emotional wellness evaluation
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-blue-600 font-semibold text-sm">15</span>
+                      <span className="text-blue-600 font-semibold text-sm">1</span>
                     </div>
-                    <span className="text-gray-700">{t('common.questionsCount')}</span>
+                    <span className="text-gray-700">Share your basic information (optional)</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Heart className="w-4 h-4 text-purple-600" />
+                      <span className="text-purple-600 font-semibold text-sm">2</span>
                     </div>
-                    <span className="text-gray-700">{t('common.evidenceBased')}</span>
+                    <span className="text-gray-700">AI generates 15 personalized questions for you</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <ArrowRight className="w-4 h-4 text-green-600" />
+                      <span className="text-green-600 font-semibold text-sm">3</span>
                     </div>
-                    <span className="text-gray-700">{t('common.immediateResults')}</span>
+                    <span className="text-gray-700">Receive detailed, personalized insights</span>
                   </div>
                 </CardContent>
               </Card>
@@ -210,10 +281,10 @@ export default function Home() {
               <Button
                 onClick={startAssessment}
                 size="lg"
-                className="text-lg px-8 py-4 h-auto bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                className="text-lg px-8 py-4 h-auto bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
               >
-{t('common.startAssessment')}
-                <ArrowRight className="ml-2 w-5 h-5" />
+                Start Personalized Assessment
+                <Sparkles className="ml-2 w-5 h-5" />
               </Button>
 
               {/* Disclaimer */}
@@ -223,7 +294,56 @@ export default function Home() {
             </motion.div>
           )}
 
-          {currentState === 'assessment' && (
+          {currentState === 'generating' && (
+            <motion.div
+              key="generating"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="max-w-2xl mx-auto text-center"
+            >
+              <Card className="backdrop-blur-sm bg-white/90 shadow-xl border-0">
+                <CardContent className="p-12">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-blue-600 rounded-full flex items-center justify-center"
+                  >
+                    <Sparkles className="w-8 h-8 text-white" />
+                  </motion.div>
+                  
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                    Creating Your Personalized Assessment
+                  </h2>
+                  <p className="text-gray-600 mb-6">
+                    AI is analyzing your profile to generate questions tailored specifically for you...
+                  </p>
+                  
+                  <div className="space-y-3">
+                    {[
+                      "Analyzing your profile...",
+                      "Selecting relevant psychological factors...",
+                      "Crafting personalized questions...",
+                      "Finalizing your assessment..."
+                    ].map((step, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.5 }}
+                        className="text-sm text-gray-500 flex items-center justify-center"
+                      >
+                        <Clock className="w-4 h-4 mr-2" />
+                        {step}
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+
+          {currentState === 'assessment' && personalizedQuestions.length > 0 && (
             <motion.div
               key="assessment"
               initial={{ opacity: 0 }}
@@ -233,9 +353,14 @@ export default function Home() {
             >
               {/* Header */}
               <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                  {t('common.title')}
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  Personalized Assessment
                 </h1>
+                {assessmentContext && (
+                  <p className="text-sm text-purple-600 mb-4 bg-purple-50 px-4 py-2 rounded-lg inline-block">
+                    {assessmentContext}
+                  </p>
+                )}
                 <div className="max-w-md mx-auto">
                   <Progress value={progress} className="h-3" />
                   <div className="flex justify-between text-sm text-gray-600 mt-2">
@@ -247,8 +372,8 @@ export default function Home() {
 
               {/* Question */}
               <div className="mb-8">
-                <Question
-                  question={assessmentQuestions[currentQuestion]}
+                <PersonalizedQuestion
+                  question={personalizedQuestions[currentQuestion]}
                   selectedAnswer={answers[currentQuestion]}
                   onAnswerSelect={handleAnswerSelect}
                   questionNumber={currentQuestion + 1}
